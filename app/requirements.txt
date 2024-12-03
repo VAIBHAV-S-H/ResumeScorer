@@ -1,5 +1,6 @@
 fastapi
 uvicorn
-PyPDF2
 python-dotenv
 langchain_groq
+langchain_core
+llama-index
