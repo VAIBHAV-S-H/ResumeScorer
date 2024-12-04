@@ -1,12 +1,37 @@
 import os
 import json
-from utils import Utils
 from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 from dotenv import load_dotenv
-import re
-# Load environment variables
+from PyPDF2 import PdfReader  
+
 load_dotenv()
+
+class Utils:
+    def __init__(self):
+        pass  # No need for initialization as PyPDF2 does not require API keys or configurations
+
+    def extract_text(self, file_path):
+        try:
+            # Initialize a PDF reader
+            reader = PdfReader(file_path)
+            text_content = []
+
+            # Extract text from each page
+            for page in reader.pages:
+                if page.extract_text():
+                    text_content.append(page.extract_text())
+
+            return "\n".join(text_content)
+        except Exception as e:
+            print(f"Error reading PDF: {e}")
+            return ""
+
+    def map_to_template(self):
+        pass
+
+    def render_latex(self):
+        pass
 
 
 class Groq:
@@ -92,9 +117,9 @@ class Groq:
         Scoring Priorities:
         Deduct points for missing critical job qualifications or misaligned content.
         Add weight for:
-        Quantifiable accomplishments.
-        Clear STAR-based highlights.
-        Strong use of relevant keywords.
+            Quantifiable accomplishments.
+            Clear STAR-based highlights.
+            Strong use of relevant keywords.
         Note:
         Ensure the feedback is actionable and highlights both strengths and areas for improvement.
         NO PREAMBLE and no inclusion of ```
@@ -103,7 +128,7 @@ class Groq:
     def __init__(self):
         self.llm = ChatGroq(
             temperature=0,
-            groq_api_key=os.getenv("GROQ_API_KEY"),
+            groq_api_key="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",
             model="llama-3.1-70b-versatile",
         )
 
@@ -149,57 +174,39 @@ class Groq:
         )
         return response.content
 
-job_title = "Quantum Computing Developer"
-jd_text = """ BosonQ Psi is looking for a Quantum Computing Developer who will play a pivotal role in driving. innovation within our simulation-as-a-service (Q-SaaS) software suite, BQPhy.As part of this role, you'll collaborate extensively across teams to develop state-of-the-art quantum algorithms, leveraging languages such as Qiskit and PennyLane to enhance hybrid quantum-classical workflows
+# job_title = "Mineral Processing Engineer"
+# jd_text = """ Job description
 
-Apply now to be a part of revolutionizing computational science and pushing the boundaries of Quantum Computing and join us and shape the future of simulations for diverse industries
+# Experience in mineral processing equipment i.e. size reduction (Crushers, Grinding Mills), Dewatering (Thickeners, Filters), Gravity separation (Cyclones, Spiral classifier), Magnetic Separation (Low, Medium & High Intensity), Flotation cells, Slurry pumps etc. Should have good Knowledge of plant layout including utilities and should have the expertise of layout optimization based on the plant requirement.
+# Experience in the field of basic and detail design in mineral processing plant and equipment (Iron ore, Lead-Zinc, Copper, Precious metals, Coal washeries etc). Should be able to provide the required water and air requirements and other utilities along with calculations for the Plant.
+# Preparation of Process design Basis, Mass Balance, Process Flow Diagrams based on the test work and the Material characteristic provided by the customer., Piping & Instrumentation diagrams and selection of suitable material of construction.
+# Preparation of bought out equipment duty condition/data sheets, Assist/evaluation of sizing and selection of equipment. Provide assistance with process inputs for piping, valves, electrical and instrumentation in Generation of Plant P&IDs.
+# Assist in Plant layouts, sectional drawings and floor plans with load details; GA and manufacturing drawings; technological & support structures; Piping routing in 2D and 3D tools. Should be able to relate Mechanical, civil& Instrumentation requirements in conjunction with process.
+# Executing commissioning activities at various stages like, pre-commissioning, cold & hot commissioning, capacity ramp up and performance testing.
+# Process stabilization at customer site, Participating in Performance guarantees tests, technical warranty claim or customer complain handling. Should have knowledge of coning & quartering of samples, sieve analysis etc. Related to test work.
+# Ensure that the work complies with relevant specification/standards, tolerances and ensure the material of constructions for the service and good for intended application.
+# Knowledge of relevant safety requirements and design standards (Indian, European, America and International) & codes.
+# Knowledge/exposure to material handling i.e. conveyor, feeders, silo/stockpile design; Utility system i.e. water, compressor air etc along with capacity calculations.
+# Collaborate and partner with internal departments including Project, Proposal, Procurement, Field Service etc. Oversee improvement of engineering tools & data base.
+# Support and ensure optimum scheduling for engineering, attend review meetings, and provide necessary reporting on a regular basis.
+# Resolve engineering problems and concerns and work closely with client representatives to ensure problem resolution, give timely feedback, taking actions on eventual deviations.
+# Ensure engineering tasks are delivered on time, on cost and on the quality and performance.
+# Should be available to move frequently at customer sites for clarifications and meetings related to plant and process for providing assistance to sales and proposals.
 
-Responsibilities. Design, implement, and evaluate quantum algorithms tailored for machine learning, optimization, and simulation applications
+# Role: Process Engineer
+# Industry Type: Metals & Mining
+# Department: Production, Manufacturing & Engineering
+# Employment Type: Full Time, Permanent
+# Role Category: Engineering
+# Education
+# UG: B.Tech/B.E. in Chemical, Mineral
+# PG: M.Tech in Mineral
+# Key Skills
+# Skills highlighted with *  are preferred keyskills
+# Mineral ProcessingMathcadProcess Engineering """
 
-Collaborate closely with researchers, engineers, and domain experts to translate intricate problem domains into efficient quantum computational workflows
+# file_path = "C:/Users/vaibh/OneDrive/Desktop/genai-hidevs/ResumeScorer/app/utils/ResumeVaibhav.pdf"
 
-Develop and optimize hybrid quantum-classical algorithms to harness the synergies between quantum and classical computing resources
-
-Utilize quantum programming languages, libraries, and frameworks such as Qiskit, PennyLane, Cirq, or equivalent to realize quantum algorithms and applications
-
-Lead the integration of quantum solutions into real-world applications and contribute to the evolution of scalable quantum computing infrastructure
-
-Stay updated with the latest advancements in quantum computing, machine learning, and optimization fields, and actively participate in thought leadership within the organization and the wider scientific community
-
-Employ familiarity with GPU technologies to enhance computational performance
-
-Upskill other team members by conducting knowledge awareness sessions and workshops internally
-
-Requirements. Bachelors/Masters degree in Computer Science, Physics, Mathematics, or a related field with a focus on quantum computing
-
-Hands-on experience in designing and implementing quantum algorithms for machine learning, optimization, or simulation, preferably within a research or industry context
-
-Proficiency in Python, quantum programming languages such as Qiskit, PennyLane, Cirq, or equivalent, along with the adaptability to work with less mainstream quantum frameworks
-
-Strong mathematical and algorithmic prowess, accompanied by a profound understanding of quantum computing principles and quantum information theory
-
-Demonstrated ability to collaborate effectively in cross-functional teams and take ownership of projects from inception to fruition
-
-Exceptional communication and presentation skills, capable of elucidating complex technical concepts to both technical and non-technical stakeholders
-
-A passion for pushing the boundaries of computational science and catalyzing impactful advancements in quantum computing
-
-Proficiency in utilizing cloud platforms like AWS and Azure is desirable
-
-Tech Stack. Must-have: Python, Qiskit, PennyLane, familiarity with C++. Good to have: Experience with cloud platforms (AWS, Azure),. We welcome people from all backgrounds and embrace gender diversity. We're committed to building a team that reflects the richness of the talent pool, and we encourage applications from everyone who has the skills and passion to thrive in this role
-Role: Data warehouse Developer
-Industry Type: Recruitment / Staffing
-Department: Engineering - Software & QA
-Employment Type: Full Time, Permanent
-Role Category: DBA / Data warehousing
-Education
-UG: Any Graduate
-PG: Any Postgraduate
-Key Skills
-mathematicspresentation skillsgpsalgorithmscommunication skillsprogrammingquantum """
-
-file_path = "C:/Users/vaibh/OneDrive/Desktop/genai-hidevs/ResumeScorer/app/utils/ResumeVaibhav.pdf"
-
-groq = Groq()
-result = groq.generate_strict_scoring(job_title=job_title, jd_text=jd_text, file_path=file_path)
-print(result)
+# groq = Groq()
+# result = groq.generate_strict_scoring(job_title=job_title, jd_text=jd_text, file_path=file_path)
+# print(result)
