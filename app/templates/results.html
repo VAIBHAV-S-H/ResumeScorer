@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Scoring Results</title>
-    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Scoring Results for "{{ job_title }}"</h1>
-        <pre>{{ result }}</pre> <!-- Display JSON response nicely -->
-    </div>
+    <h1>Scoring Results for Job: {{ job_title }}</h1>
+
+    <h2>Overall Score: {{ result['overallScore'] }}</h2>
+    <p>Alignment Feedback: {{ result['alignmentFeedback'] }}</p>
+
+    <h3>Keyword Match</h3>
+    <ul>
+        <li>Matched: {{ result['keywordMatch']['matched'] }}</li>
+        <li>Unmatched: {{ result['keywordMatch']['unmatched'] }}</li>
+    </ul>
+
+    <h3>Suggestions for Improvement</h3>
+    <ul>
+        {% for suggestion in result['overallImprovementSuggestions'] %}
+            <li>{{ suggestion }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Impact Analysis</h3>
+    <ul>
+        <li>Impactful Phrases: {{ result['impactAnalysis']['impactfulPhrases'] }}</li>
+        <li>Weak Phrases: {{ result['impactAnalysis']['weakPhrases'] }}</li>
+    </ul>
 </body>
 </html>

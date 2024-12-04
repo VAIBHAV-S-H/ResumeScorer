@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume Scorer</title>
-  <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Scorer</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="resume-scorer">
-      <h1>Resume Scorer</h1>
-      <p>Optimize your resume for success with HiDevs' advanced scoring insights.</p>
-      <form action="/score_resume/" method="POST" enctype="multipart/form-data">
-        <input type="text" name="job-title" placeholder="Job Title" required />
-        <textarea name="job-description" placeholder="Job Description" rows="5" required></textarea>
-        <div class="file-upload" id="upload-area">
-          <label for="resume-upload">
-            <div class="upload-content">
-              <span class="upload-icon">⬆️</span>
-              <p id="upload-text">Click or drag your resume here to upload</p>
-            </div>
-            <input type="file" id="resume-upload" name="resume" accept=".pdf, .doc, .docx" required />
-          </label>
-        </div>          
-        <button type="submit" class="btn">Get Started</button>
-      </form>
-      <div class="chat-box">
-        <p>Chat with EchoDeepak if you have any doubts</p>
-      </div>
-    </div>
-  </div>
+    <h1>Resume Scorer</h1>
+    <form action="/score_resume/" method="post" enctype="multipart/form-data">
+        <label for="job_title">Job Title:</label>
+        <input type="text" id="job_title" name="job_title" required>
+        <br><br>
+
+        <label for="job_description">Job Description:</label>
+        <textarea id="job_description" name="job_description" rows="4" cols="50" required></textarea>
+        <br><br>
+
+        <label for="resume_file">Upload Resume:</label>
+        <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx" required>
+        <br><br>
+
+        <button type="submit">Score Resume</button>
+    </form>
 </body>
 </html>
