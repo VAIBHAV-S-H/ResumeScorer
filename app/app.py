@@ -4,6 +4,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import shutil
 import os
+import sys
+
+sys.path.append("./")
 from utils.Groq_setup import Groq  # Importing Groq class from utils/Groq_setup.py
 import json
 
@@ -19,12 +22,14 @@ templates = Jinja2Templates(directory="templates")
 # Initialize the Groq object
 groq = Groq()
 
+
 @app.get("/", response_class=HTMLResponse)
 async def get_resume_scorer(request: Request):
     """
     Render the scorer.html template for the homepage.
     """
     return templates.TemplateResponse("scorer.html", {"request": request})
+
 
 @app.post("/score_resume/", response_class=HTMLResponse)
 async def score_resume(
@@ -53,7 +58,9 @@ async def score_resume(
 
         # Ensure result is in a usable format (JSON)
         if isinstance(result, str):
-            result = json.loads(result)  # Convert string result to JSON if it's in string format
+            result = json.loads(
+                result
+            )  # Convert string result to JSON if it's in string format
 
     except Exception as e:
         # Handle errors gracefully
