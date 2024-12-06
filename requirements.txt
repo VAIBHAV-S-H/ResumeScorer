@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-python-dotenv
-langchain_groq
-langchain_core
-llama-index
