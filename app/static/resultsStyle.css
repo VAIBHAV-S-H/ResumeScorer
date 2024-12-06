@@ -1,0 +1,64 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Title styling */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Subtitle styling */
+h2, h3 {
+    color: #34495e;
+    margin-top: 20px;
+}
+
+/* List styling */
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+ul ul {
+    list-style-type: circle;
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Highlight important text */
+strong {
+    color: #2980b9;
+}
+
+/* Layout and spacing */
+p {
+    margin: 10px 0;
+}
+
+/* Box around main content */
+body > h1, h2, h3, ul, p {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Add hover effects for better interactivity */
+li:hover {
+    color: #16a085;
+    cursor: default;
+}
